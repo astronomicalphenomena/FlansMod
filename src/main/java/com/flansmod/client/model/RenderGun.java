@@ -84,7 +84,7 @@ public class RenderGun implements IItemRenderer
 				PlayerData playerData = PlayerHandler.getPlayerData(player, Side.CLIENT);
 				if(playerData.offHandGunSlot != 0)
 				{
-					GunAnimations animations = FlansModClient.gunAnimationsLeft.get(data[1]);
+					GunAnimations animations = FlansModClient.gunAnimationsLeft.get((EntityLivingBase)data[1]);
 					if(animations == null)
 					{
 						animations = new GunAnimations();
@@ -179,7 +179,7 @@ public class RenderGun implements IItemRenderer
 						return;
 					}
 					float adsSwitch = FlansModClient.lastZoomProgress + (FlansModClient.zoomProgress - FlansModClient.lastZoomProgress) * smoothing;//0F;//((float)Math.sin((FlansMod.ticker) / 10F) + 1F) / 2F;
-					
+					System.out.print(adsSwitch);
 					if(offHand)
 					{
 						GL11.glTranslatef(0F, 0.03F, -0.76F);
@@ -228,11 +228,11 @@ public class RenderGun implements IItemRenderer
 							reloadRotate = effectiveReloadAnimationProgress / model.tiltGunTime;
 						if(effectiveReloadAnimationProgress > model.tiltGunTime + model.unloadClipTime + model.loadClipTime)
 							reloadRotate = 1F - (effectiveReloadAnimationProgress - (model.tiltGunTime + model.unloadClipTime + model.loadClipTime)) / model.untiltGunTime;
-						
+
 						//Rotate the gun dependent on the animation type
 						switch(model.animationType)
 						{
-							case BOTTOM_CLIP : case PISTOL_CLIP : case SHOTGUN : case END_LOADED : 
+							case BOTTOM_CLIP : case PISTOL_CLIP : case SHOTGUN : case END_LOADED :
 							{
 								GL11.glRotatef(60F * reloadRotate, 0F, 0F, 1F);
 								GL11.glRotatef(30F * reloadRotate * flip, 1F, 0F, 0F);
