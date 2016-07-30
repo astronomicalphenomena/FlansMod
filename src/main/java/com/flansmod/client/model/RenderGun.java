@@ -29,7 +29,7 @@ import cpw.mods.fml.relauncher.Side;
 public class RenderGun implements IItemRenderer
 {
 	private static TextureManager renderEngine;
-	
+
 	public static float smoothing;
 	
 	@Override
@@ -179,7 +179,8 @@ public class RenderGun implements IItemRenderer
 						return;
 					}
 					float adsSwitch = FlansModClient.lastZoomProgress + (FlansModClient.zoomProgress - FlansModClient.lastZoomProgress) * smoothing;//0F;//((float)Math.sin((FlansMod.ticker) / 10F) + 1F) / 2F;
-					System.out.print(adsSwitch);
+					//System.out.print("ads"+adsSwitch+"\nsms"+smoothing+"\n");
+
 					if(offHand)
 					{
 						GL11.glTranslatef(0F, 0.03F, -0.76F);
@@ -237,6 +238,7 @@ public class RenderGun implements IItemRenderer
 								GL11.glRotatef(60F * reloadRotate, 0F, 0F, 1F);
 								GL11.glRotatef(30F * reloadRotate * flip, 1F, 0F, 0F);
 								GL11.glTranslatef(0.25F * reloadRotate, 0F, 0F);
+								//System.out.print("\nrotate:"+reloadRotate);
 								break;
 							}
 							case BACK_LOADED :
@@ -311,6 +313,7 @@ public class RenderGun implements IItemRenderer
 	/** Gun render method, seperated from transforms so that mecha renderer may also call this */
 	public void renderGun(ItemStack item, GunType type, float f, ModelGun model, GunAnimations animations, float reloadRotate)
 	{
+		//System.out.print("other\n");
 		//Make sure we actually have the renderEngine
 		if(renderEngine == null)
 			renderEngine = Minecraft.getMinecraft().renderEngine;

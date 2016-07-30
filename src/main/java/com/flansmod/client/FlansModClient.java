@@ -102,6 +102,8 @@ public class FlansModClient extends FlansMod
 	public static IScope currentScope = null;
 	/** The transition variable for zooming in / out with a smoother. 0 = unscoped, 1 = scoped */
 	public static float zoomProgress = 0F, lastZoomProgress = 0F;
+	/** The transition variable for folding gun during sprinting with a smoother.*/
+	public static float sprintProgress = 0F, lastSprintProgress = 0F;
 	/** The zoom level of the last scope used, for transitioning out of being scoped, even after the scope is forgotten */
 	public static float lastZoomLevel = 1F, lastFOVZoomLevel = 1F;
     
@@ -326,7 +328,20 @@ public class FlansModClient extends FlansMod
 			minecraft.gameSettings.mouseSensitivity = originalMouseSensitivity;
 			minecraft.gameSettings.thirdPersonView = originalThirdPerson;
 		}
-		
+		//switch if zooming or sprinting, and disable the other.
+		if(minecraft.thePlayer.isSprinting()&&currentScope!=null)
+		{
+			if(zoomProgress>sprintProgress)
+			{
+				sprintProgress = 0F;
+				minecraft.thePlayer.setSprinting(false);
+			}
+			else
+			{
+				zoomProgress = 0F;
+				currentScope = null;
+			}
+		}
 		//Calculate new zoom variables
 		lastZoomProgress = zoomProgress;
 		if(currentScope == null)
@@ -336,6 +351,16 @@ public class FlansModClient extends FlansMod
 		else
 		{
 			zoomProgress = 1F - (1F - zoomProgress) * 0.66F; 
+		}
+
+		lastSprintProgress = sprintProgress;
+		if(!minecraft.thePlayer.isSprinting())
+		{
+			sprintProgress *= 0.66F;
+		}
+		else
+		{
+			sprintProgress = 1F - (1F - sprintProgress) * 0.66F;
 		}
 		
 		if (minecraft.thePlayer.ridingEntity instanceof IControllable)
