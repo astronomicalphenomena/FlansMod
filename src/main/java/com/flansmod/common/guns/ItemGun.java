@@ -767,6 +767,8 @@ public class ItemGun extends Item implements IFlanItem
 	{
 		if(type.deployable)
 			return gunStack;
+		if(entityplayer.isSprinting())
+			return gunStack;
 		PlayerData data = PlayerHandler.getPlayerData(entityplayer);
 		//Shoot delay ticker is at (or below) 0. Try and shoot the next bullet
 		if((left && data.shootTimeLeft <= 0) || (!left && data.shootTimeRight <= 0))
@@ -845,11 +847,15 @@ public class ItemGun extends Item implements IFlanItem
 	/** Reload method. Called automatically when firing with an empty clip */
 	public boolean reload(ItemStack gunStack, GunType gunType, World world, Entity entity, IInventory inventory, boolean creative, boolean forceReload)
 	{
+
 		//Deployable guns cannot be reloaded in the inventory
 		if(gunType.deployable)
 			return false;
 		//If you cannot reload half way through a clip, reject the player for trying to do so
 		if(forceReload && !gunType.canForceReload)
+			return false;
+		//Cannot reload during Sprinting
+		if(entity.isSprinting())
 			return false;
 		//For playing sounds afterwards
 		boolean reloadedSomething = false;
@@ -909,6 +915,8 @@ public class ItemGun extends Item implements IFlanItem
 				}
 			}
 		}
+		//Stop Sprinting
+
 		return reloadedSomething;
 	}
 

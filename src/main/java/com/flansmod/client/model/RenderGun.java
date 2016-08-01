@@ -179,7 +179,8 @@ public class RenderGun implements IItemRenderer
 						return;
 					}
 					float adsSwitch = FlansModClient.lastZoomProgress + (FlansModClient.zoomProgress - FlansModClient.lastZoomProgress) * smoothing;//0F;//((float)Math.sin((FlansMod.ticker) / 10F) + 1F) / 2F;
-					//System.out.print("ads"+adsSwitch+"\nsms"+smoothing+"\n");
+					float sprSwitch = FlansModClient.lastSprintProgress + (FlansModClient.sprintProgress - FlansModClient.lastSprintProgress) * smoothing;
+                    //System.out.print("ads"+adsSwitch+"\nsms"+smoothing+"\n");
 
 					if(offHand)
 					{
@@ -197,9 +198,12 @@ public class RenderGun implements IItemRenderer
 							GL11.glTranslatef(-0.3F * adsSwitch, 0F, 0F);
 						GL11.glRotatef(4.5F * adsSwitch, 0F, 0F, 1F);
 						GL11.glTranslatef(0F, -0.03F * adsSwitch, 0F);
+                        GL11.glRotatef(90F * sprSwitch,0F,1F,0F);
+                        GL11.glRotatef(20F * sprSwitch,0F,0F,1F);
+                        GL11.glTranslatef(0.3F*sprSwitch,-0.1F*sprSwitch,0F);
 					}
-					
-					if(animations.meleeAnimationProgress > 0 && animations.meleeAnimationProgress < gunType.meleePath.size()) 
+
+					if(animations.meleeAnimationProgress > 0 && animations.meleeAnimationProgress < gunType.meleePath.size())
 					{
 						Vector3f meleePos = gunType.meleePath.get(animations.meleeAnimationProgress);
 						Vector3f nextMeleePos = animations.meleeAnimationProgress + 1 < gunType.meleePath.size() ? gunType.meleePath.get(animations.meleeAnimationProgress + 1) : new Vector3f();
@@ -211,7 +215,7 @@ public class RenderGun implements IItemRenderer
 						GL11.glRotatef(meleeAngles.x + (nextMeleeAngles.x - meleeAngles.x) * smoothing, 1F, 0F, 0F);
 
 					}
-					
+
 					if(model.spinningCocking)
 					{
 						GL11.glTranslatef(model.spinPoint.x, model.spinPoint.y, model.spinPoint.z);
@@ -219,7 +223,7 @@ public class RenderGun implements IItemRenderer
 						GL11.glRotatef(pumped * 180F + 180F, 0F, 0F, 1F);
 						GL11.glTranslatef(-model.spinPoint.x, -model.spinPoint.y, -model.spinPoint.z);
 					}
-					
+
 					if(animations.reloading)
 					{
 						//Calculate the amount of tilt required for the reloading animation
@@ -255,7 +259,7 @@ public class RenderGun implements IItemRenderer
 								GL11.glTranslatef(0.5F * reloadRotate, -0.2F * reloadRotate, 0F);
 								break;
 							}
-							case RIFLE : 
+							case RIFLE :
 							{
 								GL11.glRotatef(30F * reloadRotate, 0F, 0F, 1F);
 								GL11.glRotatef(-30F * reloadRotate * flip, 1F, 0F, 0F);
@@ -276,7 +280,7 @@ public class RenderGun implements IItemRenderer
 								GL11.glTranslatef(0.15F * reloadRotate, 0.25F * reloadRotate, 0F);
 								break;
 							}
-							case STRIKER : 
+							case STRIKER :
 							{
 								GL11.glRotatef(-35F * reloadRotate * flip, 1F, 0F, 0F);
 								GL11.glTranslatef(0.2F * reloadRotate, 0F, -0.1F * reloadRotate);
@@ -304,12 +308,12 @@ public class RenderGun implements IItemRenderer
 				}
 				default : break;
 			}
-			
+
 			renderGun(item, gunType, f, model, animations, reloadRotate);
 		}
 		GL11.glPopMatrix();
 	}
-	
+
 	/** Gun render method, seperated from transforms so that mecha renderer may also call this */
 	public void renderGun(ItemStack item, GunType type, float f, ModelGun model, GunAnimations animations, float reloadRotate)
 	{

@@ -117,7 +117,6 @@ public class FlansModClient extends FlansMod
 	
 	/** Whether the player is in a plane or not */
 	public static boolean inPlane = false;
-	
 	/** Packet containing teams mod information from the server */
 	public static PacketTeamInfo teamInfo;
 	/** When a round ends, the teams score GUI is locked for this length of time */
@@ -331,7 +330,7 @@ public class FlansModClient extends FlansMod
 		//switch if zooming or sprinting, and disable the other.
 		if(minecraft.thePlayer.isSprinting()&&currentScope!=null)
 		{
-			if(zoomProgress>sprintProgress)
+			if(zoomProgress>sprintProgress||shootTimeLeft > 0||shootTimeRight > 0)
 			{
 				sprintProgress = 0F;
 				minecraft.thePlayer.setSprinting(false);
