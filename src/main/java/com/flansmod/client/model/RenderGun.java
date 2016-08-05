@@ -200,7 +200,7 @@ public class RenderGun implements IItemRenderer
 						GL11.glTranslatef(0F, -0.03F * adsSwitch, 0F);
                         GL11.glRotatef(90F * sprSwitch,0F,1F,0F);
                         GL11.glRotatef(20F * sprSwitch,0F,0F,1F);
-                        GL11.glTranslatef(0.3F*sprSwitch,-0.1F*sprSwitch,0F);
+                        GL11.glTranslatef(0.27F*sprSwitch,-0.1F*sprSwitch,0F);
 					}
 
 					if(animations.meleeAnimationProgress > 0 && animations.meleeAnimationProgress < gunType.meleePath.size())

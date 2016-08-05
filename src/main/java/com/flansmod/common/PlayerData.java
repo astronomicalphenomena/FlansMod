@@ -109,7 +109,10 @@ public class PlayerData
 		
 		if(shootClickDelay > 0)
 			shootClickDelay--;
-		
+
+		if(isShootingRight||isShootingLeft||reloadingLeft||reloadingRight)
+			player.setSprinting(false);
+
 		//Handle minigun speed
 		if(isShootingRight && !reloadingRight)
 			minigunSpeed += 2F; 
