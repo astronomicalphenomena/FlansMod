@@ -1,5 +1,6 @@
 package com.flansmod.client.model;
 
+import com.flansmod.common.FlansMod;
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
@@ -180,8 +181,6 @@ public class RenderGun implements IItemRenderer
 					}
 					float adsSwitch = FlansModClient.lastZoomProgress + (FlansModClient.zoomProgress - FlansModClient.lastZoomProgress) * smoothing;//0F;//((float)Math.sin((FlansMod.ticker) / 10F) + 1F) / 2F;
 					float sprSwitch = FlansModClient.lastSprintProgress + (FlansModClient.sprintProgress - FlansModClient.lastSprintProgress) * smoothing;
-                    //System.out.print("ads"+adsSwitch+"\nsms"+smoothing+"\n");
-
 					if(offHand)
 					{
 						GL11.glTranslatef(0F, 0.03F, -0.76F);
@@ -198,9 +197,22 @@ public class RenderGun implements IItemRenderer
 							GL11.glTranslatef(-0.3F * adsSwitch, 0F, 0F);
 						GL11.glRotatef(4.5F * adsSwitch, 0F, 0F, 1F);
 						GL11.glTranslatef(0F, -0.03F * adsSwitch, 0F);
-                        GL11.glRotatef(90F * sprSwitch,0F,1F,0F);
-                        GL11.glRotatef(20F * sprSwitch,0F,0F,1F);
-                        GL11.glTranslatef(0.27F*sprSwitch,-0.1F*sprSwitch,0F);
+					}
+					if(gunType.oneHanded)
+					{
+						GL11.glRotatef(-40F * sprSwitch,0F,0F,1F);
+					}
+					else if(FlansMod.isGunaimdown)
+					{
+						GL11.glRotatef(62F * sprSwitch,0F,1F,0F);
+						GL11.glRotatef(-25F * sprSwitch,0F,0F,1F);
+						GL11.glTranslatef(0.17F*sprSwitch,0.03F,0.23F);
+					}
+					else
+					{
+						GL11.glRotatef(90F * sprSwitch,0F,1F,0F);
+						GL11.glRotatef(20F * sprSwitch,0F,0F,1F);
+						GL11.glTranslatef(0.27F*sprSwitch,-0.1F*sprSwitch,0F);
 					}
 
 					if(animations.meleeAnimationProgress > 0 && animations.meleeAnimationProgress < gunType.meleePath.size())
