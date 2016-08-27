@@ -204,15 +204,15 @@ public class RenderGun implements IItemRenderer
 					}
 					else if(FlansMod.isGunaimdown)
 					{
-						GL11.glRotatef(62F * sprSwitch,0F,1F,0F);
-						GL11.glRotatef(-25F * sprSwitch,0F,0F,1F);
-						GL11.glTranslatef(0.17F*sprSwitch,0.03F,0.23F);
+						GL11.glRotatef(85F * sprSwitch,0F,1F,0F);
+						GL11.glRotatef(-20F * sprSwitch,0F,0F,1F);
+						GL11.glTranslatef(0.17F*sprSwitch,0.03F*sprSwitch,0.23F*sprSwitch);
 					}
 					else
 					{
 						GL11.glRotatef(90F * sprSwitch,0F,1F,0F);
 						GL11.glRotatef(20F * sprSwitch,0F,0F,1F);
-						GL11.glTranslatef(0.27F*sprSwitch,-0.1F*sprSwitch,0F);
+						GL11.glTranslatef(0.17F*sprSwitch,-0.1F*sprSwitch,0F);
 					}
 
 					if(animations.meleeAnimationProgress > 0 && animations.meleeAnimationProgress < gunType.meleePath.size())
