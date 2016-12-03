@@ -200,7 +200,13 @@ public class RenderGun implements IItemRenderer
 					}
 					if(gunType.oneHanded)
 					{
-						GL11.glRotatef(-40F * sprSwitch,0F,0F,1F);
+						if(FlansMod.isPistalaimdown)
+							GL11.glRotatef(-40F * sprSwitch,0F,0F,1F);
+						else
+						{
+							GL11.glTranslatef(0.1F*sprSwitch,0,0);
+							GL11.glRotatef(55F * sprSwitch, 0F, 0F, 1F);
+						}
 					}
 					else if(FlansMod.isGunaimdown)
 					{

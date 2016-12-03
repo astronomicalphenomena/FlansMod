@@ -3,11 +3,11 @@ buildscript {
         mavenCentral()
         maven {
  		name = "forge"
- 		url = "http://bmclapi2.bangbang93.com/maven"
+ 		url = "http://files.minecraftforge.net/maven"
  		}
 		 maven {
 		 name = "minecraft"
-		 url = "http://bmclapi2.bangbang93.com/libraries"
+		 url = "https://libraries.minecraft.net/"
  		}
         maven {
             name = "sonatype"
@@ -20,16 +20,8 @@ buildscript {
     }
 }
 
-apply plugin: 'fgow'
-repos {
- mcJsonUrl = "http://bmclapi2.bangbang93.com/versions/{MC_VERSION}/{MC_VERSION}.json"
- mcClientUrl = "http://bmclapi2.bangbang93.com/versions/{MC_VERSION}/{MC_VERSION}.jar";
- mcServerUrl = "http://bmclapi2.bangbang93.com/versions/{MC_VERSION}/minecraft_server.{MC_VERSION}.jar";;
- assestIndexUrl = "http://bmclapi2.bangbang93.com/indexes/{ASSET_INDEX}.json";
- assestUrl = "http://bmclapi2.bangbang93.com/assets"
- mcpUrl = "http://forgemavenmirror.sinaapp.com/fernflower-fix-1.0.zip"
- }
-version = "4.10.0"
+apply plugin: 'forge'
+version = "4.10.0-wasteland"
 group= "com.flansmod"
 archivesBaseName = "Flan's Mod"
 

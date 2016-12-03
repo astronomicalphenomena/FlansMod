@@ -255,17 +255,17 @@ public class ItemGun extends Item implements IFlanItem
 								else
 								{
 									//Send packet when firing a semi or starting to fire a full
-									if(leftMouseHeld && !lastLeftMouseHeld) 
+									if(rightMouseHeld && !lastRightMouseHeld)
 									{
 										FlansMod.getPacketHandler().sendToServer(new PacketGunFire(true, true));
 										if(clientSideShoot(player, offHandGunStack, offHandGunType, true))
 											player.inventory.setInventorySlotContents(data.offHandGunSlot - 1, null);
 									}
-									if((offHandGunType.getFireMode(offHandGunStack) == EnumFireMode.FULLAUTO || offHandGunType.getFireMode(offHandGunStack) == EnumFireMode.MINIGUN) && !leftMouseHeld && lastLeftMouseHeld) //Full auto. Send released mouse packet
+									if((offHandGunType.getFireMode(offHandGunStack) == EnumFireMode.FULLAUTO || offHandGunType.getFireMode(offHandGunStack) == EnumFireMode.MINIGUN) && !rightMouseHeld && lastRightMouseHeld) //Full auto. Send released mouse packet
 									{
 										FlansMod.getPacketHandler().sendToServer(new PacketGunFire(true, false));
 									}
-									if((offHandGunType.getFireMode(offHandGunStack) == EnumFireMode.FULLAUTO || offHandGunType.getFireMode(offHandGunStack) == EnumFireMode.MINIGUN) && leftMouseHeld)
+									if((offHandGunType.getFireMode(offHandGunStack) == EnumFireMode.FULLAUTO || offHandGunType.getFireMode(offHandGunStack) == EnumFireMode.MINIGUN) && rightMouseHeld)
 									{
 										if(clientSideShoot(player, offHandGunStack, offHandGunType, true))
 											player.inventory.setInventorySlotContents(data.offHandGunSlot - 1, null);
@@ -276,7 +276,7 @@ public class ItemGun extends Item implements IFlanItem
 						else data.offHandGunSlot = 0;
 					}
 				}
-				
+
 				//--------------------------------- Main hand item ---------------------------------------------
 				//If we are using a burst mode gun, and there is burst left to be done, try to do it
 				if(type.usableByPlayers)
@@ -289,17 +289,17 @@ public class ItemGun extends Item implements IFlanItem
 					else
 					{
 						//Send packet when firing a semi or starting to fire a full
-						if(rightMouseHeld && !lastRightMouseHeld) 
+						if(leftMouseHeld && !lastLeftMouseHeld)
 						{
 							FlansMod.getPacketHandler().sendToServer(new PacketGunFire(false, true));
 							if(clientSideShoot(player, itemstack, type, false))
 								player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
 						}
-						if((type.getFireMode(itemstack) == EnumFireMode.FULLAUTO || type.getFireMode(itemstack) == EnumFireMode.MINIGUN) && !rightMouseHeld && lastRightMouseHeld) //Full auto. Send released mouse packet
+						if((type.getFireMode(itemstack) == EnumFireMode.FULLAUTO || type.getFireMode(itemstack) == EnumFireMode.MINIGUN) && !leftMouseHeld && lastLeftMouseHeld) //Full auto. Send released mouse packet
 						{
 							FlansMod.getPacketHandler().sendToServer(new PacketGunFire(false, false));
 						}
-						if((type.getFireMode(itemstack) == EnumFireMode.FULLAUTO || type.getFireMode(itemstack) == EnumFireMode.MINIGUN) && rightMouseHeld)
+						if((type.getFireMode(itemstack) == EnumFireMode.FULLAUTO || type.getFireMode(itemstack) == EnumFireMode.MINIGUN) && leftMouseHeld)
 						{
 							if(clientSideShoot(player, itemstack, type, false))
 								player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
@@ -307,7 +307,7 @@ public class ItemGun extends Item implements IFlanItem
 					}
 				}
 				IScope currentScope = type.getCurrentScope(itemstack);
-				if(!offHandFull && (type.secondaryFunction == EnumSecondaryFunction.ADS_ZOOM || type.secondaryFunction == EnumSecondaryFunction.ZOOM) && Mouse.isButtonDown(0) && FlansModClient.scopeTime <= 0 && FMLClientHandler.instance().getClient().currentScreen == null)
+				if(!offHandFull && (type.secondaryFunction == EnumSecondaryFunction.ADS_ZOOM || type.secondaryFunction == EnumSecondaryFunction.ZOOM) && Mouse.isButtonDown(1) && FlansModClient.scopeTime <= 0 && FMLClientHandler.instance().getClient().currentScreen == null)
 				{
 					if(FlansModClient.currentScope == null)
 					{
