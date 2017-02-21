@@ -113,6 +113,8 @@ public class FlansMod
     public static boolean addGunpowderRecipe = true;
 	public static boolean isGunaimdown = false;
 	public static boolean isPistalaimdown = false;
+	public static double[] aimdownQuat = null;
+	public static double[] aimdownVec = {0.17,0.23,0.33};
     public static int teamsConfigInteger = 32;
     public static String teamsConfigString = "Hello!";
     public static boolean teamsConfigBoolean = false;
@@ -538,7 +540,9 @@ public class FlansMod
         addGunpowderRecipe = configFile.getBoolean("Gunpowder Recipe", Configuration.CATEGORY_GENERAL, addGunpowderRecipe, "Whether or not to add the extra gunpowder recipe (3 charcoal + 1 lightstone)");
 		isGunaimdown = configFile.getBoolean("Gun point down", Configuration.CATEGORY_GENERAL, isGunaimdown, "Whether or not do the gun point down during sprinting");
 		isPistalaimdown = configFile.getBoolean("Pistal point down", Configuration.CATEGORY_GENERAL, isPistalaimdown, "Whether or not do any one hand gun point down during sprinting");
-        //teamsConfigInteger = configFile.getInt("Config Integer", Configuration.CATEGORY_GENERAL, teamsConfigInteger, 0, Integer.MAX_VALUE, "An Integer!");
+	    aimdownQuat = configFile.get("Gun point down quaternion",Configuration.CATEGORY_GENERAL,aimdownQuat,"How gun rotate when aim down").getDoubleList();
+	    aimdownVec = configFile.get("Gun point down translation",Configuration.CATEGORY_GENERAL,aimdownVec,"How gun translation when aim down").getDoubleList();
+	    //teamsConfigInteger = configFile.getInt("Config Integer", Configuration.CATEGORY_GENERAL, teamsConfigInteger, 0, Integer.MAX_VALUE, "An Integer!");
         //teamsConfigString = configFile.getString("Config String", Configuration.CATEGORY_GENERAL, teamsConfigString, "A String!");
         //teamsConfigBoolean = configFile.getBoolean("Config Boolean", Configuration.CATEGORY_GENERAL, teamsConfigBoolean, "A Boolean!");
 
